@@ -32,12 +32,16 @@ import androidx.navigation3.ui.NavDisplay
 import com.jsoftware.healthyeating.ui.theme.Pink40
 import com.jsoftware.healthyeating.ui.theme.PurpleGrey40
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Home
+import com.jsoftware.healthyeating.presentation.screens.Add
+import com.jsoftware.healthyeating.presentation.screens.Home
 
 
 @Composable
-fun AppGraph(){
+fun AppGraph( modifier: Modifier ){
     val backStack = rememberNavBackStack(AppRouter.Home)
 
     val selectTab: (AppRouter) -> Unit = { tab ->
@@ -53,7 +57,12 @@ fun AppGraph(){
                 is AppRouter.Home -> NavEntry(key){
                 TabScaffold(currentTab = AppRouter.Home, onTabSelected = selectTab) { padding->
                     Home()
+                    }
                 }
+                is AppRouter.Add -> NavEntry(key){
+                    TabScaffold(currentTab = AppRouter.Add, onTabSelected = selectTab) { padding->
+                        Add()
+                    }
                 }
                 else -> NavEntry(key) {}
             }
@@ -102,6 +111,14 @@ private fun BottomTabBar(
             label = "Home",
             iconSelected = Icons.Rounded.Home,
             iconUnselected = Icons.Outlined.Home,
+            selected = currentTab is AppRouter.Home,
+            modifier = Modifier.weight(1f),
+            onClick = { onTabSelected(AppRouter.Home) }
+        )
+        TabItem(
+            label = "Add",
+            iconSelected = Icons.Rounded.Add,
+            iconUnselected = Icons.Outlined.Add,
             selected = currentTab is AppRouter.Home,
             modifier = Modifier.weight(1f),
             onClick = { onTabSelected(AppRouter.Home) }

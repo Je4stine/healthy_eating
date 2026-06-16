@@ -7,7 +7,7 @@ class HealthyApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {  }
+        startKoin { }
     }
 
 }
